@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     {
         controll.SetSpeed(enemyInfo.Speed);
         hp.SetMaxHealth(enemyInfo.MaxHealth);
+
     }
 
     //피격관련
@@ -37,12 +38,15 @@ public class Enemy : MonoBehaviour
 
         isAlive = enemyInfo.Health > 0; //살아있나?
         if (!isAlive)
-            Death();
-    }
-    void Death()
-    {
-        Debug.Log("Dead");
+            StartCoroutine(Death());
     }
 
-    //Todo : 씬에 몬스터가 없으면 꺼내쓰기
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1);
+        //죽으면 재생성을 위해 초기
+        enemyInfo.Health = enemyInfo.MaxHealth;
+        gameObject.SetActive(false);
+        GameManager.Instance.SpawnMonster();
+    }
 }

@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour
     Vector2 movement = Vector2.left;
     float enemySpeed;
 
-    private void Awake()
+    private void Start()
     {
         _enemy = GetComponent<Enemy>();
         rgdby2D = GetComponent<Rigidbody2D>();
